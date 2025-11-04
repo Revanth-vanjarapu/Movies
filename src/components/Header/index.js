@@ -30,7 +30,7 @@ const Header = () => {
           <AiOutlineSearch className="icon" />
         </button>
       </div>
-
+      <textarea />
       <ul className="menu">
         <li className="options">
           <Link to="/">Popular</Link>

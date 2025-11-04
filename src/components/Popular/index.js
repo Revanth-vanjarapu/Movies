@@ -1,28 +1,37 @@
 import {Component} from 'react'
 import ThreeDots from 'react-loader-spinner'
 import MovieCard from '../MovieCard'
+import Pagination from '../Pagination'
+import MovieContext from '../../context/MovieContext'
 
 class Home extends Component {
+  static contextType = MovieContext
+
   state = {
     movies: [],
+    totalPages: null,
     loading: true,
   }
 
   componentDidMount() {
-    this.getPopularMovies()
+    this.getPopularMovies(1)
   }
 
-  getPopularMovies = async () => {
-    const API_KEY = 'a374bca69e67123ff3aaaee2daebdce3'
+  getPopularMovies = async pageNo => {
+    const {API_KEY} = this.context
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${pageNo}`,
     )
     const data = await response.json()
-    this.setState({movies: data.results, loading: false})
+    this.setState({
+      movies: data.results,
+      totalPages: data.total_pages,
+      loading: false,
+    })
   }
 
   render() {
-    const {movies, loading} = this.state
+    const {movies, totalPages, loading} = this.state
 
     return (
       <>
@@ -44,6 +53,10 @@ class Home extends Component {
                 <MovieCard key={movie.id} movie={movie} />
               ))}
             </div>
+            <Pagination
+              apiCallback={this.getPopularMovies}
+              totalPages={totalPages}
+            />
           </>
         )}
       </>

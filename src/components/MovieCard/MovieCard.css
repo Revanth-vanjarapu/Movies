@@ -27,7 +27,8 @@
   color: #f5c518;
 }
 
-.details-button {
+.details-button,
+.btn-primary {
   background-color: #f5c518;
   color: #000;
   border: none;

@@ -1,4 +1,5 @@
 import React from 'react'
+import './index.css'
 
 class Pagination extends React.Component {
   state = {
@@ -43,15 +44,27 @@ class Pagination extends React.Component {
 
   render() {
     const {pageNo} = this.state
-    // const {totalPages} = this.props
+    const {totalPages} = this.props
 
     return (
-      <div className="mb-3 d-flex justify-content-center align-items-center">
-        <button type="button" className="control-btn" onClick={this.onPrevPage}>
+      <div className='pagenation'>
+        <button
+          type='button'
+          className='btn btn-primary'
+          onClick={this.onPrevPage}
+          disabled={pageNo === 1}
+        >
           Prev
         </button>
-        <p className="page-no">{pageNo}</p>
-        <button type="button" className="control-btn" onClick={this.onNextPage}>
+        <p className='page-no'>{pageNo} </p>
+        <p className='page-no'>/ {totalPages} </p>
+        <button
+          type='button'
+          name='Next'
+          title='Next'
+          className='btn btn-primary'
+          onClick={this.onNextPage}
+        >
           Next
         </button>
       </div>

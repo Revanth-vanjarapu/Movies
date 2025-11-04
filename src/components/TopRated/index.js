@@ -1,26 +1,39 @@
 import {useContext, useEffect, useState} from 'react'
 import MovieContext from '../../context/MovieContext'
 import MovieCard from '../MovieCard'
+import Pagination from '../Pagination'
 
 const TopRated = () => {
   const {API_KEY} = useContext(MovieContext)
   const [movies, setMovies] = useState([])
+  const [pageNo, setPageNo] = useState(1)
+  const [totalPages, setTotalPages] = useState()
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${pageNo}`,
     )
       .then(res => res.json())
-      .then(data => setMovies(data.results))
+      .then(data => {
+        setMovies(data.results)
+        setTotalPages(data.total_pages)
+      })
       .catch(err => console.error(err))
-  }, [API_KEY])
+  }, [API_KEY, pageNo])
+
+  const handlePageChange = newPage => {
+    setPageNo(newPage)
+  }
 
   return (
-    <div className="movies-grid">
-      {movies.map(movie => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </div>
+    <>
+      <div className="movies-grid">
+        {movies.map(movie => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+      <Pagination apiCallback={handlePageChange} totalPages={totalPages} />
+    </>
   )
 }
 

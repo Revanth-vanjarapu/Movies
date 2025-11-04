@@ -1,17 +1,17 @@
 import {useState} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import Home from './components/Popular' // Keep your original folder name
+import Home from './components/Popular'
 import TopRated from './components/TopRated'
 import Upcomming from './components/Upcomming'
 import MovieDetails from './components/MovieDetails'
 import SearchedMovies from './components/SearchedMovies'
 import Header from './components/Header'
 
-import MovieContext from './context/MovieContext' // Renamed to match your context
+import MovieContext from './context/MovieContext'
 import './App.css'
 
-const API_KEY = 'a374bca69e67123ff3aaaee2daebdce3'
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY
 
 const App = () => {
   const [searchResponse, setSearchResponse] = useState({})
@@ -44,6 +44,7 @@ const App = () => {
   return (
     <MovieContext.Provider
       value={{
+        API_KEY,
         searchResponse,
         apiStatus,
         onTriggerSearchingQuery,
