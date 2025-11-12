@@ -7,7 +7,7 @@ class Pagination extends React.Component {
   };
 
   onNextPage = () => {
-    const {apiCallback, totalPages} = this.props;
+    const { apiCallback, totalPages } = this.props;
     this.setState(
       (prevState) => {
         if (prevState.pageNo < totalPages) {
@@ -18,14 +18,14 @@ class Pagination extends React.Component {
         return prevState;
       },
       () => {
-        const {pageNo} = this.state;
+        const { pageNo } = this.state;
         apiCallback(pageNo);
       },
     );
   };
 
   onPrevPage = () => {
-    const {apiCallback} = this.props;
+    const { apiCallback } = this.props;
     this.setState(
       (prevState) => {
         if (prevState.pageNo > 1) {
@@ -36,15 +36,15 @@ class Pagination extends React.Component {
         return prevState;
       },
       () => {
-        const {pageNo} = this.state;
+        const { pageNo } = this.state;
         apiCallback(pageNo);
       },
     );
   };
 
   render() {
-    const {pageNo} = this.state;
-    const {totalPages} = this.props;
+    const { pageNo } = this.state;
+    const { totalPages } = this.props;
 
     return (
       <div className="pagenation">
@@ -52,7 +52,8 @@ class Pagination extends React.Component {
           type="button"
           className="btn btn-primary"
           onClick={this.onPrevPage}
-          disabled={pageNo === 1}>
+          disabled={pageNo === 1}
+        >
           Prev
         </button>
         <p className="page-no">{pageNo} </p>
@@ -62,7 +63,8 @@ class Pagination extends React.Component {
           name="Next"
           title="Next"
           className="btn btn-primary"
-          onClick={this.onNextPage}>
+          onClick={this.onNextPage}
+        >
           Next
         </button>
       </div>
