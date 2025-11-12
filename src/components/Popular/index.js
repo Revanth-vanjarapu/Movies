@@ -5,8 +5,6 @@ import Pagination from '../Pagination'
 import MovieContext from '../../context/MovieContext'
 
 class Home extends Component {
-  static contextType = MovieContext
-
   state = {
     movies: [],
     totalPages: null,
@@ -63,5 +61,7 @@ class Home extends Component {
     )
   }
 }
+
+Home.contextType = MovieContext
 
 export default Home
